@@ -9,7 +9,7 @@ env:
   ECR_REPOSITORY: frontend
   TASK_DEFINITION: frontend-task-def.json
   CONTAINER_NAME: frontend
-  ECS_SERVICE: frondend-service
+  ECS_SERVICE: frontend-service
   ECS_CLUSTER: frontend
 
 jobs:
@@ -49,19 +49,10 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
 
-  Deploy:
-    runs-on: ubuntu-latest
-    needs: build-and-push
-
-    steps:
-
-      - name: Checkout source
-        uses: actions/checkout@v4
-
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ${{ steps.render-task-def.outputs.task-definitio }}
+          task-definition: ${{ steps.render-task-def.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
