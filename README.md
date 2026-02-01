@@ -18,7 +18,7 @@ query{
     email
   }
 }
-
+...
 2. Get single user details
 
 query{
