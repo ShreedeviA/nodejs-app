@@ -51,7 +51,7 @@ jobs:
       id: task-def
       uses: aws-actions/amazon-ecs-render-task-definition@v1
       with:
-        task-definition: nodejs-app/frontend-task-def.json
+        task-definition: frontend-task-def.json
         container-name: frontend
         image: 904368994913.dkr.ecr.ap-south-1.amazonaws.com/frontend:${{ github.sha }}
 
